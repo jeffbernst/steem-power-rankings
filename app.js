@@ -15,22 +15,11 @@ function totalPowerUps(data) {
   return total.toString();
 }
 
-let jeffHistoryPromise = new Promise((resolve, reject) => {
-  steem.api.getAccountHistory('jeffbernst', -1, 1000, function(err, result) {
-    if (err) reject(err);
-    resolve(result);
-  });
-});
-
 let totalPowerUpsVal;
 
-jeffHistoryPromise
-  .then(data => {
-    totalPowerUpsVal = totalPowerUps(data);
-  })
-  .catch(err => {
-    console.error(err);
-  });
+steem.api.getAccountHistory('jeffbernst', -1, 1000, function(err, result) {
+  if (!err) totalPowerUpsVal = totalPowerUps(result);
+});
 
 app.get('/', (req, res) => {
   res.send(totalPowerUpsVal);
