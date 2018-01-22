@@ -15,14 +15,39 @@ function totalPowerUps(data) {
   return total.toString();
 }
 
-let totalPowerUpsVal;
+function createHistoryPromise(accountName, limit) {
+  return new Promise((resolve, reject) => {
+    steem.api.getAccountHistory(accountName, -1, limit, function(err, result) {
+      if (!err) resolve(totalPowerUps(result));
+    });
+  });
+}
 
-steem.api.getAccountHistory('jeffbernst', -1, 1000, function(err, result) {
-  if (!err) totalPowerUpsVal = totalPowerUps(result);
-});
+let nameArray = [
+  'jeffbernst',
+  'aggroed',
+  'exyle',
+  'louisthomas',
+  'voronoi',
+  'hansikhouse'
+];
 
-app.get('/', (req, res) => {
-  res.send(totalPowerUpsVal);
+let namePromiseArray = nameArray.map(name => createHistoryPromise(name, 1000));
+
+let resultsArray = [];
+
+async function resolvePromises() {
+  for (let i = 0; i < namePromiseArray.length; i++) {
+    let result = await namePromiseArray[i];
+    resultsArray.push(`${nameArray[i]}: ${result}`);
+  }
+}
+
+let promiseExecution = resolvePromises();
+
+app.get('/', async (req, res) => {
+  await promiseExecution;
+  res.send(resultsArray);
 });
 
 app.listen(8080, () => console.log('Example app listening on port 8080!'));
