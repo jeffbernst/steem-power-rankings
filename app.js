@@ -25,11 +25,12 @@ function createHistoryPromise(accountName, limit) {
 
 let nameArray = [
   'jeffbernst',
-  'aggroed',
   'exyle',
   'louisthomas',
-  'voronoi',
-  'hansikhouse'
+  'cryptoctopus',
+  'dan',
+  'jerrybanfield',
+  'ned'
 ];
 
 let namePromiseArray = nameArray.map(name => createHistoryPromise(name, 1000));
