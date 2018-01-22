@@ -2,7 +2,7 @@
   "name": "power-rankings",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "app.js",
   "dependencies": {
     "express": "^4.16.2",
     "steem": "^0.6.7"
