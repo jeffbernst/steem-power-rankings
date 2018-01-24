@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Steem Power Rankings</title>
+</head>
+<body>
+	<h1>Steem Power Rankings</h1>
+	<form id="search-form">
+		Transactions:
+		<input type="text" value="5000" class="transactions-count"><br>
+		Start Date:
+		<input type="date" class="start-date"><br>
+		End Date:
+		<input type="date" class="end-date"><br>
+		Users:
+		<input type="text" value="['jeffbernst', 'erb', 'voronoi']" class="usersToSearch">
+		<button type="submit">Search</button>
+	</form>
+	<div class="results"></div>
+	<script src="/node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="node_modules/steem/dist/steem.min.js"></script>
+	<script src="app.js"></script>
+</body>
+</html>
