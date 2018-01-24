@@ -12,16 +12,17 @@
 		Transactions:
 		<input type="text" value="5000" class="transactions-count"><br>
 		Start Date:
-		<input type="date" class="start-date"><br>
+		<input type="date" class="start-date" value="2018-01-14"><br>
 		End Date:
-		<input type="date" class="end-date"><br>
+		<input type="date" class="end-date" value="2018-01-20"><br>
 		Users:
-		<input type="text" value="['jeffbernst', 'erb', 'voronoi']" class="usersToSearch">
+		<input type="text" value="jeffbernst,erb,voronoi" class="users-to-search">
 		<button type="submit">Search</button>
 	</form>
+	<br>
 	<div class="results"></div>
 	<script src="/node_modules/jquery/dist/jquery.min.js"></script>
-	<script src="node_modules/steem/dist/steem.min.js"></script>
+	<script src="../node_modules/steem/dist/steem.min.js"></script>
 	<script src="app.js"></script>
 </body>
 </html>

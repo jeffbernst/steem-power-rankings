@@ -1,5 +1,7 @@
 const chai = require('chai');
-const {totalPowerUps} = require('./app');
+const {totalPowerUps} = require('./public/app');
+
+// need to export totalPowerUPs again
 
 expect = chai.expect;
 
