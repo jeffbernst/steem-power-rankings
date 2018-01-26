@@ -11,8 +11,10 @@ function handleSubmitQuery() {
 		const startDate = $('.start-date').val();
 		const endDate = $('.end-date').val();
 		const usersToSearch = $('.users-to-search').val().replace(/\s/g, '').split(',');
-		console.log(`start: ${new Date(startDate)}`);
-		console.log(`end: ${new Date(endDate)}`);
+		console.log(`start: ${startDate}`);
+		console.log(`end: ${endDate}`);
+		console.log(`start: ${moment().format(startDate)}`);
+		console.log(`end: ${moment().format(endDate)}`);
 
 		let namePromiseArray = [];
 
@@ -56,15 +58,15 @@ function createResultsTable(resultsObj) {
 
 function totalPowerUps(data, startDate, endDate) {
   let total = 0;
-	let startDateObj = new Date(startDate);
-	let endDateObj = new Date(endDate);
+	let startDateObj = moment().format(startDate);
+	let endDateObj = moment().format(endDate);
 
-	let dataStartDate = new Date(data[0][1].timestamp);
+	let dataStartDate = moment().format(data[0][1].timestamp);
 	if (dataStartDate > startDateObj) return 'need more transactions';
 
   for (let i = 0; i < data.length; i++) {
     if (data[i][1].op[0] === 'transfer_to_vesting') {
-    	let transferDate = new Date(data[i][1].timestamp);
+    	let transferDate = moment().format(data[i][1].timestamp);
 			let transferString = data[i][1].op[1].amount;
     	if (transferDate >= startDateObj && transferDate <= endDateObj) {
 				total += Number(transferString.substr(0, transferString.indexOf(' ')));
