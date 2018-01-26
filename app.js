@@ -10,9 +10,9 @@ function handleSubmitQuery() {
 		const transactionsCount = $('.transactions-count').val();
 		const startDate = $('.start-date').val();
 		const endDate = $('.end-date').val();
-		const usersToSearch = $('.users-to-search').val().split(',');
-		console.log(new Date(startDate));
-		console.log(new Date(endDate));
+		const usersToSearch = $('.users-to-search').val().replace(/\s/g, '').split(',');
+		console.log(`start: ${new Date(startDate)}`);
+		console.log(`end: ${new Date(endDate)}`);
 
 		let namePromiseArray = [];
 
