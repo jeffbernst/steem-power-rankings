@@ -11,10 +11,6 @@ function handleSubmitQuery() {
 		const startDate = $('.start-date').val();
 		const endDate = $('.end-date').val();
 		const usersToSearch = $('.users-to-search').val().replace(/\s/g, '').split(',');
-		console.log(`start: ${startDate}`);
-		console.log(`end: ${endDate}`);
-		console.log(`start: ${moment().format(startDate)}`);
-		console.log(`end: ${moment().format(endDate)}`);
 
 		let namePromiseArray = [];
 
