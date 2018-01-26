@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Steem Power Rankings</title>
+	<link rel="stylesheet" href="main.css">
 </head>
 <body>
 	<h1>Steem Power Rankings</h1>
@@ -16,10 +17,11 @@
 		End Date:
 		<input type="date" class="end-date" value="2018-01-20"><br>
 		Users:
-		<input type="text" value="jeffbernst,erb,voronoi" class="users-to-search">
+		<input type="text" value="jeffbernst,dan,ned,louisthomas,sndbox,exyle" class="users-to-search">
 		<button type="submit">Search</button>
 	</form>
 	<br>
+	<div class="error"></div><br>
 	<div class="results"></div>
 	<script src="/node_modules/jquery/dist/jquery.min.js"></script>
 	<script src="../node_modules/steem/dist/steem.min.js"></script>

@@ -1,16 +1,25 @@
 steem.api.setOptions({ url: 'https://api.steemit.com' });
 
 function handleSubmitQuery() {
-	$('#search-form').submit(function(event) {
+	$('#search-form').submit(async function(event) {
 		event.preventDefault();
 		console.log('searching');
+		$('.error').html('');
+		$('.results').html('<img src="pacman.gif" alt="loading">');
 
 		const transactionsCount = $('.transactions-count').val();
 		const startDate = $('.start-date').val();
 		const endDate = $('.end-date').val();
 		const usersToSearch = $('.users-to-search').val().split(',');
+		console.log(new Date(startDate));
+		console.log(new Date(endDate));
 
-		let namePromiseArray = usersToSearch.map(name => createHistoryPromise(name, transactionsCount, startDate, endDate));
+		let namePromiseArray = [];
+
+		for (let [index, name] of usersToSearch.entries()) {
+			if (index % 5 === 0) await sleep(1000);
+			namePromiseArray.push(createHistoryPromise(name, transactionsCount, startDate, endDate))
+		}
 
 		let resultsArray = [];
 		let promiseExecution = resolvePromises(namePromiseArray, usersToSearch, resultsArray);
@@ -21,9 +30,20 @@ function handleSubmitQuery() {
 
 async function waitForPromisesThenAppendResults(promiseExecution, resultsArray) {
 	await promiseExecution;
+
+	let error = checkResultsForError(resultsArray);
+	if (error) $('.error').text('The app needs more transactions for this search. Please increase the value above and search again.');
+
 	let sortedResults = resultsArray.sort((a,b) => b.total - a.total);
 	let resultsHtml = createResultsTable(sortedResults);
 	$('.results').html(resultsHtml);
+}
+
+function checkResultsForError(resultsArray) {
+	let found = resultsArray.some(function (el) {
+		return el.total === 'need more transactions';
+	});
+	return found;
 }
 
 function createResultsTable(resultsObj) {
@@ -38,8 +58,8 @@ function totalPowerUps(data, startDate, endDate) {
   let total = 0;
 	let startDateObj = new Date(startDate);
 	let endDateObj = new Date(endDate);
-	let dataStartDate = new Date(data[0][1].timestamp);
 
+	let dataStartDate = new Date(data[0][1].timestamp);
 	if (dataStartDate > startDateObj) return 'need more transactions';
 
   for (let i = 0; i < data.length; i++) {
@@ -68,6 +88,14 @@ async function resolvePromises(promiseArray, nameArray, resultsArray) {
     let result = await promiseArray[i];
     resultsArray.push({name: nameArray[i], total: result});
   }
+}
+
+function sleep(ms) {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			resolve();
+		}, ms);
+	})
 }
 
 $(handleSubmitQuery());
